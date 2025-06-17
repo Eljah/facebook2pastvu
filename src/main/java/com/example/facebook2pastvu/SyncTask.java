@@ -7,12 +7,12 @@ import java.util.List;
 public class SyncTask implements Runnable {
     @Override
     public void run() {
-        try {
-            String fbToken = System.getenv("FB_TOKEN");
-            String fbGroupId = System.getenv("FB_GROUP_ID");
-            String pastvuCity = System.getenv("PASTVU_CITY");
+        try (Database db = new Database()) {
+            String fbToken = db.getConfig("FB_TOKEN");
+            String fbGroupId = db.getConfig("FB_GROUP_ID");
+            String pastvuCity = db.getConfig("PASTVU_CITY");
             if (fbToken == null || fbGroupId == null || pastvuCity == null) {
-                System.err.println("Missing environment variables");
+                System.err.println("Missing config values");
                 return;
             }
 
@@ -22,7 +22,6 @@ public class SyncTask implements Runnable {
             FacebookClient fb = new FacebookClient(fbToken, fbGroupId);
             PastVuClient pv = new PastVuClient();
             ImageMatcher matcher = new ImageMatcher();
-            Database db = new Database();
 
             List<FacebookPost> posts = fb.fetchPosts();
             for (FacebookPost post : posts) {
@@ -37,8 +36,6 @@ public class SyncTask implements Runnable {
                     }
                 }
             }
-
-            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
