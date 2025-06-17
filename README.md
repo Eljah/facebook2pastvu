@@ -27,4 +27,7 @@ Deploy the generated WAR to Tomcat. The synchronization job is started by a cron
 
 ## Viewing results
 
-Open `/matches` in the deployed application to see all stored matches. The page shows thumbnails from both Facebook and PastVu along with links and matching metadata.
+Open `/matches` in the deployed application to see all stored matches. The page
+lists the Facebook post ID, thumbnails from both sources and provides direct
+links to the Facebook and PastVu pages along with the matching method stored in
+the database.

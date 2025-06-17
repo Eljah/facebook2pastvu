@@ -26,15 +26,14 @@ public class MatchesServlet extends HttpServlet {
             w.println("<html><head><title>Matches</title></head><body>");
             w.println("<h1>Facebook to PastVu Matches</h1>");
             w.println("<table border='1' cellpadding='5' cellspacing='0'>");
-            w.println("<tr><th>Facebook</th><th>PastVu</th><th>Method</th></tr>");
+            w.println("<tr><th>Post</th><th>Facebook</th><th>PastVu</th><th>Method</th></tr>");
             for (Match m : matches) {
                 String fbLink = "https://facebook.com/" + m.postId();
                 String pvThumb = fetchPvThumb(m.pvUrl());
                 w.println("<tr>");
-                w.println("<td><a href='" + fbLink + "'><img src='" + m.fbUrl() + "' style='max-height:150px'></a><br/>" +
-                        "<a href='" + m.fbUrl() + "'>Image</a></td>");
-                w.println("<td><a href='" + m.pvUrl() + "'><img src='" + pvThumb + "' style='max-height:150px'></a><br/>" +
-                        "<a href='" + m.pvUrl() + "'>PastVu</a></td>");
+                w.println("<td><a href='" + fbLink + "' target='_blank'>" + m.postId() + "</a></td>");
+                w.println("<td><a href='" + m.fbUrl() + "' target='_blank'><img src='" + m.fbUrl() + "' style='max-height:150px'></a></td>");
+                w.println("<td><a href='" + m.pvUrl() + "' target='_blank'><img src='" + pvThumb + "' style='max-height:150px'></a></td>");
                 w.println("<td>" + m.method() + "</td>");
                 w.println("</tr>");
             }
