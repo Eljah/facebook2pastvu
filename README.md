@@ -12,7 +12,7 @@ This produces `facebook2pastvu.war` which can be deployed to Tomcat.
 
 ## Configuration
 
-Set the following environment variables in the servlet container:
+Open `/config` (HTTP Basic auth, password `admin` by default) to set the required keys:
 
 - `FB_TOKEN` – Facebook API token with permissions to manage the group
 - `FB_GROUP_ID` – ID of the Facebook group

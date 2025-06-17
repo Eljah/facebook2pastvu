@@ -14,7 +14,15 @@ public class SchedulerListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        long interval = Long.parseLong(System.getenv().getOrDefault("SCHEDULE_MINUTES", "60"));
+        long interval = 60;
+        try (Database db = new Database()) {
+            String val = db.getConfig("SCHEDULE_MINUTES");
+            if (val != null) {
+                interval = Long.parseLong(val);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(new SyncTask(), 0, interval, TimeUnit.MINUTES);
     }
