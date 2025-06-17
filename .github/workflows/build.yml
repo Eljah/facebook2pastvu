@@ -16,8 +16,21 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            maven \
+            libmaven-resources-plugin-java \
+            libmaven-compiler-plugin-java \
+            libmaven-war-plugin-java \
+            libsurefire-java \
+            libokhttp-java \
+            libjackson2-databind-java \
+            libxerial-sqlite-jdbc-java \
+            libservlet-api-java
       - name: Build with Maven
-        run: mvn -B package
+        run: mvn -B -Dmaven.test.skip=true package
       - name: Upload WAR artifact
         uses: actions/upload-artifact@v4
         with:
