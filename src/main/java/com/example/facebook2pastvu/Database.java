@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database implements AutoCloseable {
     private final Connection conn;
@@ -30,6 +33,23 @@ public class Database implements AutoCloseable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Match> getMatches() {
+        List<Match> result = new ArrayList<>();
+        try (ResultSet rs = conn.createStatement().executeQuery(
+                "SELECT post_id, fb_url, pv_url, method FROM matches ORDER BY rowid DESC")) {
+            while (rs.next()) {
+                result.add(new Match(
+                        rs.getString("post_id"),
+                        rs.getString("fb_url"),
+                        rs.getString("pv_url"),
+                        rs.getString("method")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override

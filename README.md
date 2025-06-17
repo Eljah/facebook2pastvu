@@ -24,3 +24,7 @@ The application downloads images to the `downloads/` directory and stores matchi
 ## Running
 
 Deploy the generated WAR to Tomcat. The synchronization job is started by a cron scheduler once the application context is initialized.
+
+## Viewing results
+
+Open `/matches` in the deployed application to see all stored matches. The page shows thumbnails from both Facebook and PastVu along with links and matching metadata.
